@@ -1,0 +1,119 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:TagWriter.UI.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="450"
+             x:Class="TagWriter.UI.Views.TagWritingView"
+             x:DataType="vm:TagWritingViewModel">
+
+    <Grid RowDefinitions="Auto,*,Auto" Margin="20">
+        <!-- 标题区域 -->
+        <Grid Grid.Row="0" 
+              ColumnDefinitions="*,*" 
+              Margin="0,0,0,20">
+            <TextBlock Text="写" 
+                     Grid.Column="0"
+                     HorizontalAlignment="Center"
+                     FontSize="16"/>
+            <TextBlock Text="读" 
+                     Grid.Column="1"
+                     HorizontalAlignment="Center"
+                     FontSize="16"/>
+        </Grid>
+
+        <!-- 输入区域 -->
+        <Grid Grid.Row="1" 
+              RowDefinitions="Auto,Auto,*"
+              ColumnDefinitions="Auto,*,20,*">
+            
+            <!-- 馆藏条码 -->
+            <TextBlock Text="馆藏条码:" 
+                     Grid.Row="0" Grid.Column="0"
+                     VerticalAlignment="Center"
+                     Margin="0,0,10,10"/>
+            
+            <!-- 左侧可输入的馆藏条码 -->
+            <TextBox Text="{Binding WriteBarcode}"
+                     Grid.Row="0" Grid.Column="1"
+                     Margin="0,0,0,10"
+                     Watermark="请输入馆藏条码"/>
+            
+            <!-- 右侧只读的馆藏条码 -->
+            <TextBox Text="{Binding ReadBarcode}"
+                     Grid.Row="0" Grid.Column="3"
+                     IsReadOnly="True"
+                     IsHitTestVisible="False"
+                     Background="#F5F5F5"
+                     Margin="0,0,0,10"/>
+
+            <!-- 馆代码 -->
+            <TextBlock Text="馆代码:" 
+                     Grid.Row="1" Grid.Column="0"
+                     VerticalAlignment="Center"
+                     Margin="0,0,10,10"/>
+            
+            <!-- 左侧只读的馆代码 -->
+            <TextBox Text="{Binding WriteLibraryCode}"
+                     Grid.Row="1" Grid.Column="1"
+                     IsReadOnly="True"
+                     IsHitTestVisible="False"
+                     Background="#F5F5F5"
+                     Margin="0,0,0,10"/>
+            
+            <!-- 右侧只读的馆代码 -->
+            <TextBox Text="{Binding ReadLibraryCode}"
+                     Grid.Row="1" Grid.Column="3"
+                     IsReadOnly="True"
+                     IsHitTestVisible="False"
+                     Background="#F5F5F5"
+                     Margin="0,0,0,10"/>
+
+            <!-- 状态显示区域 -->
+            <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4"
+                    BorderBrush="LightGray"
+                    BorderThickness="1"
+                    CornerRadius="4">
+                <Grid RowDefinitions="*,Auto">
+                    <TextBox Text="{Binding StatusMessage}"
+                            Grid.Row="0"
+                            IsReadOnly="True"
+                            IsHitTestVisible="False"
+                            Background="Transparent"
+                            TextWrapping="Wrap"
+                            AcceptsReturn="True"
+                            BorderThickness="0"/>
+                    
+                    <ProgressBar Grid.Row="1"
+                                Value="{Binding ProgressValue}"
+                                Height="20"
+                                Margin="2"/>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- 底部按钮区域 -->
+        <Grid Grid.Row="2" 
+              ColumnDefinitions="Auto,*,Auto"
+              Margin="0,20,0,0">
+            
+            <Button Content="取消"
+                    Command="{Binding CancelCommand}"
+                    Width="100"
+                    Height="30"
+                    Classes="TitleBarButton"/>
+
+            <TextBlock Text="{Binding CurrentTask, StringFormat=当前执行任务：{0}}"
+                     Grid.Column="1"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Center"/>
+
+            <Button Content="确认"
+                    Command="{Binding ConfirmCommand}"
+                    Grid.Column="2"
+                    Width="100"
+                    Height="30"
+                    Classes="TitleBarButton"/>
+        </Grid>
+    </Grid>
+</UserControl> 
