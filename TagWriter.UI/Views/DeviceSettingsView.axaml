@@ -1,0 +1,171 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:TagWriter.UI.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="600"
+             x:Class="TagWriter.UI.Views.DeviceSettingsView"
+             x:DataType="vm:DeviceSettingsViewModel">
+
+    <Grid RowDefinitions="*,Auto">
+        <!-- 主要内容区域 -->
+        <ScrollViewer Grid.Row="0">
+            <Grid Margin="20" RowDefinitions="Auto,20,Auto,Auto">
+                <!-- 上方配置区域 -->
+                <Grid Grid.Row="0" ColumnDefinitions="*,20,*">
+                    <!-- 左侧设备配置 -->
+                    <Border Grid.Column="0"
+                            Background="White"
+                            CornerRadius="8"
+                            Padding="20">
+                        <StackPanel>
+                            <TextBlock Text="设备配置" Classes="Title"/>
+
+                            <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto"
+                                  ColumnDefinitions="Auto,*">
+                                <Grid.Styles>
+                                    <Style Selector="TextBlock">
+                                        <Setter Property="Margin" Value="0,0,10,8"/>
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                    </Style>
+                                    <Style Selector="TextBox">
+                                        <Setter Property="Height" Value="32"/>
+                                        <Setter Property="Margin" Value="0,0,0,8"/>
+                                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                    </Style>
+                                    <Style Selector="ComboBox">
+                                        <Setter Property="Height" Value="32"/>
+                                        <Setter Property="Margin" Value="0,0,0,8"/>
+                                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                    </Style>
+                                </Grid.Styles>
+
+                                <TextBlock Text="天线类型：" Classes="Label" Grid.Row="0" Grid.Column="0"/>
+                                <TextBox Text="{Binding AntennaType}" Grid.Row="0" Grid.Column="1"/>
+
+                                <TextBlock Text="连接方式：" Classes="Label" Grid.Row="1" Grid.Column="0"/>
+                                <ComboBox SelectedItem="{Binding ConnectionType}" Grid.Row="1" Grid.Column="1">
+                                    <ComboBoxItem>USB</ComboBoxItem>
+                                    <ComboBoxItem>串口</ComboBoxItem>
+                                </ComboBox>
+
+                                <TextBlock Text="串口：" Classes="Label" Grid.Row="2" Grid.Column="0"/>
+                                <ComboBox SelectedItem="{Binding Port}" Grid.Row="2" Grid.Column="1">
+                                    <ComboBoxItem>COM1</ComboBoxItem>
+                                    <ComboBoxItem>COM2</ComboBoxItem>
+                                </ComboBox>
+
+                                <TextBlock Text="波特率：" Classes="Label" Grid.Row="3" Grid.Column="0"/>
+                                <ComboBox SelectedItem="{Binding BaudRate}" Grid.Row="3" Grid.Column="1">
+                                    <ComboBoxItem>9600</ComboBoxItem>
+                                    <ComboBoxItem>115200</ComboBoxItem>
+                                </ComboBox>
+
+                                <TextBlock Text="起始块号：" Classes="Label" Grid.Row="4" Grid.Column="0"/>
+                                <TextBox Text="{Binding StartAddress}" Grid.Row="4" Grid.Column="1"/>
+
+                                <TextBlock Text="结束块号：" Classes="Label" Grid.Row="5" Grid.Column="0"/>
+                                <TextBox Text="{Binding EndAddress}" Grid.Row="5" Grid.Column="1"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- 右侧借阅配置 -->
+                    <Border Grid.Column="2"
+                            Background="White"
+                            CornerRadius="8"
+                            Padding="20">
+                        <StackPanel>
+                            <TextBlock Text="借阅配置" Classes="Title"/>
+
+                            <Grid RowDefinitions="Auto,Auto,Auto,Auto"
+                                  ColumnDefinitions="Auto,*">
+                                <Grid.Styles>
+                                    <Style Selector="TextBlock">
+                                        <Setter Property="Margin" Value="0,0,10,8"/>
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                    </Style>
+                                    <Style Selector="TextBox">
+                                        <Setter Property="Height" Value="32"/>
+                                        <Setter Property="Margin" Value="0,0,0,8"/>
+                                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                    </Style>
+                                </Grid.Styles>
+
+                                <TextBlock Text="馆代码：" Classes="Label" Grid.Row="0" Grid.Column="0"/>
+                                <TextBox Text="{Binding LibraryCode}" Grid.Row="0" Grid.Column="1"/>
+
+                                <TextBlock Text="益代码：" Classes="Label" Grid.Row="1" Grid.Column="0"/>
+                                <TextBox Text="{Binding BenefitCode}" Grid.Row="1" Grid.Column="1"/>
+
+                                <TextBlock Text="InAFI：" Classes="Label" Grid.Row="2" Grid.Column="0"/>
+                                <TextBox Text="{Binding InAFI}" Grid.Row="2" Grid.Column="1"/>
+
+                                <TextBlock Text="OutAFI：" Classes="Label" Grid.Row="3" Grid.Column="0"/>
+                                <TextBox Text="{Binding OutAFI}" Grid.Row="3" Grid.Column="1"/>
+                            </Grid>
+
+                            <StackPanel Margin="0,8,0,0">
+                                <CheckBox Content="启用AFI" IsChecked="{Binding UseAFI}" Margin="0,0,0,8"/>
+                                <CheckBox Content="启用DSFID" IsChecked="{Binding UseDSFID}"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <!-- 下方设备状态 -->
+                <Border Grid.Row="2"
+                        Background="White"
+                        CornerRadius="8"
+                        Padding="20">
+                    <Grid RowDefinitions="Auto,Auto,*">
+                        <TextBlock Text="设备状态"
+                                 Grid.Row="0"
+                                 FontSize="18"
+                                 FontWeight="SemiBold"
+                                 Margin="0,0,0,15"/>
+
+                        <StackPanel Grid.Row="1" 
+                                  Orientation="Horizontal" 
+                                  Spacing="10"
+                                  Margin="0,0,0,15">
+                            <Button Content="连接"/>
+                            <Button Content="获取序列号"/>
+                        </StackPanel>
+
+                        <DataGrid Grid.Row="2"
+                                 Height="200"
+                                 AutoGenerateColumns="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="条码号" Width="*"/>
+                                <DataGridTextColumn Header="防盗位" Width="100"/>
+                                <DataGridTextColumn Header="UID" Width="*"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </Border>
+            </Grid>
+        </ScrollViewer>
+
+        <!-- 底部按钮区域 -->
+        <Grid Grid.Row="1" 
+              Background="White"
+              Height="60">
+            <Border Background="#f8f9fa"
+                    BorderBrush="#e5e5e5"
+                    BorderThickness="0,1,0,0">
+                <Grid Margin="20,0" ColumnDefinitions="Auto,*,Auto">
+                    <Button Grid.Column="0"
+                            Content="保存"
+                            Command="{Binding SaveCommand}"
+                            VerticalAlignment="Center"/>
+                    
+                    <Button Grid.Column="2"
+                            Content="退出"
+                            Command="{Binding ExitCommand}"
+                            VerticalAlignment="Center"/>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl> 
